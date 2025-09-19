@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registration Form</title>
+</head>
+<body>
+
+  <h2>Student Registration Form</h2>
+
+  <form action="submit_form.php" method="post">
+
+    <!-- Full Name -->
+    <label for="fullname">Full Name:</label><br>
+    <input type="text" id="fullname" name="fullname" required><br><br>
+
+    <!-- Email -->
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <!-- Phone -->
+    <label for="phone">Phone Number:</label><br>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="e.g. 0712345678" required><br><br>
+
+    <!-- Password -->
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" minlength="6" required><br><br>
+
+    <!-- Confirm Password -->
+    <label for="confirm_password">Confirm Password:</label><br>
+    <input type="password" id="confirm_password" name="confirm_password" minlength="6" required><br><br>
+
+    <!-- Gender -->
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="Male">
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="Female">
+    <label for="female">Female</label><br><br>
+
+    <!-- Course Selection -->
+    <label for="course">Select Course:</label><br>
+    <select id="course" name="course" required>
+      <option value="">-- Choose a Course --</option>
+      <option value="education">Education</option>
+      <option value="engineering">Engineering</option>
+      <option value="arts">Arts</option>
+    </select><br><br>
+
+    <!-- Terms Agreement -->
+    <input type="checkbox" id="terms" name="terms" required>
+    <label for="terms">I agree to the Terms & Conditions</label><br><br>
+
+    <!-- Submit Button -->
+    <input type="submit" value="Register">
+
+  </form>
+
+</body>
+</html>
