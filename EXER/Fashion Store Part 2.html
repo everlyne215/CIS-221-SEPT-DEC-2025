@@ -1,0 +1,61 @@
+from flask import Flask, render_template_string
+import sqlite3
+
+app = Flask(__name__)
+
+HTML = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fashion Store Inventory</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    h1 { color: #333; }
+    table { border-collapse: collapse; width: 80%; margin: auto; background: white; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+    th { background-color: #007BFF; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    footer { text-align: center; margin-top: 40px; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Fashion Store Inventory Overview</h1>
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Bought</th>
+      <th>Sold</th>
+      <th>In Stock</th>
+      <th>Revenue ($)</th>
+    </tr>
+    {% for item in data %}
+    <tr>
+      <td>{{ item[0] }}</td>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+      <td>{{ item[3] }}</td>
+      <td>{{ "%.2f"|format(item[4]) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <footer>
+    &copy; 2025 Fashion Store. All rights reserved.
+  </footer>
+</body>
+</html>
+"""
+
+@app.route("/")
+def index():
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT item_name, total_stock, sold, (total_stock - sold), (sold * price) FROM inventory
+    """)
+    data = cursor.fetchall()
+    conn.close()
+    return render_template_string(HTML, data=data)
+
+if __name__ == "__main__":
+    app.run(debug=True)
